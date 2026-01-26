@@ -9,6 +9,8 @@ int main()
 	Wanted::Engine engine;
 	engine.SetNewLevel(new TestLevel()); // TestLevel 힙에 생성
 	engine.Run();
+
+	// Wanted::Engine* engine1 = new Wanted::Engine();
 	// engine->Run(); -> 이렇게 힙으로 굳이 안써도 될땐 스택으로 그냥
 
 	std::cin.get();
