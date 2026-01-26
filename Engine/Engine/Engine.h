@@ -38,9 +38,16 @@ namespace Wanted
 		// 현재 눌려있으면 반복 호출.
 		bool GetKey(int keyCode);
 
+		// 새 레벨을 추가(설정)하는 함수.
+		void SetNewLevel(class Level* newLevel); // 전방선언
+
 	private:// 이건 감추기!
 		// 입력 처리 함수.
 		void ProcessInput();
+
+		// 게임 플레이 시작 함수.
+		// Unity의 경우: Start/Awake.
+		void BeginPlay();
 
 		// 업데이트 함수
 		void Tick(float delthTime); // 프레임 시간을 계산해서 주입 필요
@@ -54,6 +61,9 @@ namespace Wanted
 
 		// 키 상태 저장용 배열.
 		KeyState keyStates[255] = { }; // 255개면 모든키 다 받을 수 있다. -> 게임패드 + 키보드(다국적 자판 포함)
+
+		// 메인 레벨.
+		class Level* mainLevel = nullptr; // 전방선언
 	};
 
 }

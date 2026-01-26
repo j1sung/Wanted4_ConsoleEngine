@@ -1,4 +1,6 @@
 #include "Engine.h"
+#include "Level/Level.h"
+
 #include <iostream>
 #include <windows.h> // 입력 처리시 -> 윈도우가 처리하니
 
@@ -16,7 +18,7 @@ namespace Wanted
 	void Engine::Run()
 	{
 		// 시계의 정밀도. -> 1초에 몇번 진동하는지?
-		LARGE_INTEGER frequency;
+		LARGE_INTEGER frequency; // 주파수
 		QueryPerformanceFrequency(&frequency);
 
 		// 프레임 계산용 변수. -> 프레임 = 현재시간 - 이전 시간
@@ -48,7 +50,7 @@ namespace Wanted
 			//timeGetTime(); // 밀리초 단위로 검색함 -> 가장 작은 단위 = 0.001초 -> 1/120(0.008...) 이상부턴 제대로 계산이 불가,,,
 
 			// 현재 시간 구하기
-			QueryPerformanceCounter(&time);
+			QueryPerformanceCounter(&time); // 1000만분의 1 정밀도
 			currentTime = time.QuadPart;
 			
 			
@@ -66,6 +68,7 @@ namespace Wanted
 				ProcessInput(); // 키가 눌리는지 확인 가능
 
 				// 프레임 처리.
+				BeginPlay(); // 매 프레임 X -> 처음 1번만 호출되게 = Awake
 				Tick(deltaTime); // 현재시간 기준 이전값 계산
 				Draw();
 
@@ -109,6 +112,21 @@ namespace Wanted
 		return keyStates[keyCode].isKeyDown; 
 	}
 
+	void Engine::SetNewLevel(Level* newLevel)
+	{
+		// 기존 레벨 있는지 확인
+		// 있으면 기존 레벨 제거.
+		// @Todo: 임시 코드. 레벨 전환할 때는 바로 제거하면 안됨.
+		if (mainLevel)
+		{
+			delete mainLevel;
+			mainLevel = nullptr;
+		}
+
+		// 레벨 설정.
+		mainLevel = newLevel;
+	}
+
 	void Engine::ProcessInput() // 매 프레임마다 키가 눌렸는지 확인 가능
 	{
 		// 키 마다의 입력 읽기.
@@ -122,21 +140,54 @@ namespace Wanted
 		
 	}
 
+	void Engine::BeginPlay()
+	{
+		// 레벨이 있으면 이벤트 전달.
+		// if(mainLevel) 로 되는걸 감싸는거보다 오류를 먼저 위에서 검출하고 밑에서 통과하는식으로 가는게 보기 편하고 좋다.
+		if (!mainLevel) 
+		{
+			// Silent is violent.
+			// 침묵은 폭력이다.
+			// -> 로그 메시지 안남기면 나빠
+			std::cout << "mainLevel is empty.\n";
+			return;
+		}
+		mainLevel->BeginPlay();
+	}
+
 	void Engine::Tick(float deltaTime)
 	{
-		std::cout 
-			<< "DeltaTime: " << deltaTime
-			<< ", FPS: " << (1.0f / deltaTime) << "\n";
+		//std::cout 
+		//	<< "DeltaTime: " << deltaTime
+		//	<< ", FPS: " << (1.0f / deltaTime) << "\n";
 
-		// ESC키 눌리면 종료.
-		if (GetKeyDown(VK_ESCAPE))
+		//// ESC키 눌리면 종료.
+		//if (GetKeyDown(VK_ESCAPE))
+		//{
+		//	QuitEngine();
+		//}
+
+		// 레벨에 이벤트 흘리기
+		// 예외 처리
+		if (!mainLevel)
 		{
-			QuitEngine();
+			std::cout << "Error: Engine::Tick(). mainLevel is empty.\n";
+			return;
 		}
+
+		mainLevel->Tick(deltaTime);
 	}
 
 	void Engine::Draw()
 	{
+		// 레벨에 이벤트 흘리기
+		// 예외 처리
+		if (!mainLevel)
+		{
+			std::cout << "Error: Engine::Draw(). mainLevel is empty.\n";
+			return;
+		}
 
+		mainLevel->Draw();
 	}
 }
