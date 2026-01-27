@@ -8,8 +8,14 @@
 // 네임스페이스 만든 후에 선언/정의 만들기 하면 안으로 잘 만들어줌
 namespace Wanted
 {
+	// 전역 변수 초기화.
+	Engine* Engine::instance = nullptr;
+
 	Engine::Engine()
 	{
+		// 전역 변수 값 초기화.
+		instance = this;
+
 		// 입력 관리자 생성
 		input = new Input();
 	}
@@ -81,7 +87,7 @@ namespace Wanted
 			// 고정 프레임 기법.
 			if (deltaTime >= oneFrameTime)
 			{
-				intput->ProcessInput(); // 키가 눌리는지 확인 가능
+				input->ProcessInput(); // 키가 눌리는지 확인 가능
 
 				// 프레임 처리.
 				BeginPlay(); // 매 프레임 X -> 처음 1번만 호출되게 = Awake
@@ -118,6 +124,19 @@ namespace Wanted
 		mainLevel = newLevel;
 	}
 
+	Engine& Engine::Get()
+	{
+		// 예외처리.
+		if (!instance)
+		{
+			// Silent is violent.
+			std::cout << "Error:Engine::Get(). instance is null\n";
+			__debugbreak();
+		}
+
+		return *instance;
+	}
+
 	
 	void Engine::BeginPlay()
 	{
@@ -140,12 +159,7 @@ namespace Wanted
 		//	<< "DeltaTime: " << deltaTime
 		//	<< ", FPS: " << (1.0f / deltaTime) << "\n";
 
-		//// ESC키 눌리면 종료.
-		if (input->GetKeyDown(VK_ESCAPE))
-		{
-			QuitEngine();
-		}
-
+		
 		// 레벨에 이벤트 흘리기
 		// 예외 처리
 		if (!mainLevel)

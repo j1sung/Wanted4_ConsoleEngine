@@ -24,6 +24,9 @@ namespace Wanted
 		// 새 레벨을 추가(설정)하는 함수.
 		void SetNewLevel(class Level* newLevel); // 전방선언
 
+		// 전역 접근 함수.
+		static Engine& Get();
+
 	private:// 이건 감추기!
 
 		// 게임 플레이 시작 함수.
@@ -45,6 +48,9 @@ namespace Wanted
 
 		// 메인 레벨.
 		class Level* mainLevel = nullptr; // 전방선언
+
+		// 전역 변수.
+		static Engine* instance;
 	};
 
 }
