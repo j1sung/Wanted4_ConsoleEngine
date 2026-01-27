@@ -1,10 +1,11 @@
 #pragma once
+#include "Common/Common.h"
 
 namespace Wanted
 {
 	// Main game engine class.
 	// 행동 전용.
-	class Engine
+	class WANTED_API Engine
 	{
 		// 클래스, 구조체 구조적으로 차이가 없으니 정해서 쓰자.
 		// 데이터 전용.

@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Common/Common.h"
+
 namespace Wanted
 {
 
-	class Actor
+	class WANTED_API Actor
 	{
 	public:
 		Actor();

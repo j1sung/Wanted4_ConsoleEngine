@@ -1,8 +1,10 @@
 #pragma once
+#pragma warning(disable: 4251) // 미봉책(방법 없음)
 
 // STL(Standard Template Library - C++ 에서 기본 제공)
 // 크기가 알아서 변경되는 배열.
 #include <vector>
+#include "Common/Common.h"
 
 namespace Wanted
 {
@@ -10,7 +12,7 @@ namespace Wanted
 	class Actor;
 
 	// 담당임무: 레벨에 있는 모든 액터(물체) 관리
-	class Level
+	class WANTED_API Level
 	{
 	public:
 		Level();
@@ -22,13 +24,10 @@ namespace Wanted
 		virtual void Draw();
 
 		// 액터 추가 함수.
-		void AddNewActor(Actor* newActor);
+		void AddNewActor(Actor* newActor); // 전방선언
 
 	protected:
 		// 액터 배열.
 		std::vector<Actor*> actors; // 전방선언 // TestActor 배열로 넣는데 
 	};
-
-
-
 }
