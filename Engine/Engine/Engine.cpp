@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Level/Level.h"
+#include "Core/Input.h"
 
 #include <iostream>
 #include <windows.h> // 입력 처리시 -> 윈도우가 처리하니
@@ -9,6 +10,8 @@ namespace Wanted
 {
 	Engine::Engine()
 	{
+		// 입력 관리자 생성
+		input = new Input();
 	}
 
 	Engine::~Engine()
@@ -18,6 +21,13 @@ namespace Wanted
 		{
 			delete mainLevel;
 			mainLevel = nullptr;
+		}
+
+		// 입력 관리자 제거
+		if (input)
+		{
+			delete input;
+			input = nullptr;
 		}
 	}
 
@@ -71,7 +81,7 @@ namespace Wanted
 			// 고정 프레임 기법.
 			if (deltaTime >= oneFrameTime)
 			{
-				ProcessInput(); // 키가 눌리는지 확인 가능
+				intput->ProcessInput(); // 키가 눌리는지 확인 가능
 
 				// 프레임 처리.
 				BeginPlay(); // 매 프레임 X -> 처음 1번만 호출되게 = Awake
@@ -81,12 +91,7 @@ namespace Wanted
 				// 이전 시간 값 갱신.
 				previousTime = currentTime;
 
-				// 현재 입력 값을 이전 입력 값으로 저장.
-				for (int ix = 0; ix < 255; ++ix)
-				{
-					keyStates[ix].wasKeyDown 
-						= keyStates[ix].isKeyDown;
-				}
+				input->SavePreviousInputStates();
 			}
 		}
 
@@ -97,27 +102,7 @@ namespace Wanted
 	{
 		isQuit = true;
 	}
-
-	bool Engine::GetKeyDown(int keyCode)
-	{
-		// 앞은 현재 키 눌리고(true) 뒤는 이전 키 안눌리고(false)
-		return keyStates[keyCode].isKeyDown
-			&& !keyStates[keyCode].wasKeyDown;
-	}
-
-	bool Engine::GetKeyUp(int keyCode)
-	{
-		// 앞은 현재 키 안눌리고(false) 뒤는 이전 키 눌리고(true)
-		return !keyStates[keyCode].isKeyDown
-			&& keyStates[keyCode].wasKeyDown;
-	}
-
-	bool Engine::GetKey(int keyCode)
-	{
-		// 현재 키 눌리면 true 반환
-		return keyStates[keyCode].isKeyDown; 
-	}
-
+		
 	void Engine::SetNewLevel(Level* newLevel)
 	{
 		// 기존 레벨 있는지 확인
@@ -133,19 +118,7 @@ namespace Wanted
 		mainLevel = newLevel;
 	}
 
-	void Engine::ProcessInput() // 매 프레임마다 키가 눌렸는지 확인 가능
-	{
-		// 키 마다의 입력 읽기.
-		// !!! 운영체제가 제공하는 기능을 사용할 수 밖에 없음.
-		// window 기준이면 window.h 쓰자.
-		for (int ix = 0; ix < 255; ++ix)
-		{
-			keyStates[ix].isKeyDown 
-				= GetAsyncKeyState(ix) & 0x8000 > 0 ? true : false;
-		}
-		
-	}
-
+	
 	void Engine::BeginPlay()
 	{
 		// 레벨이 있으면 이벤트 전달.
@@ -168,7 +141,7 @@ namespace Wanted
 		//	<< ", FPS: " << (1.0f / deltaTime) << "\n";
 
 		//// ESC키 눌리면 종료.
-		if (GetKeyDown(VK_ESCAPE))
+		if (input->GetKeyDown(VK_ESCAPE))
 		{
 			QuitEngine();
 		}
