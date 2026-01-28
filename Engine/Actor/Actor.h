@@ -1,12 +1,16 @@
 #pragma once
 
-#include "Common/Common.h"
+#include "Common/RTTI.h"
 
 namespace Wanted
 {
 
-	class WANTED_API Actor
+	class WANTED_API Actor : public RTTI
 	{
+
+		// RTTI 코드 추가
+		RTTI_DECLARATIONS(Actor, RTTI)
+
 	public:
 		Actor();
 		virtual ~Actor();// virtual 을 써야 자식객체로 생성할때 소멸자 호출됨

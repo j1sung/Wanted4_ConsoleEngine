@@ -37,7 +37,7 @@ namespace Wanted
 		return keyStates[keyCode].isKeyDown;
 	}
 
-	Input& Input::Get()
+	Input& Input::Get() // &로 많이 씀 -> 포인터로 하면 반환에서 오류 발생이 가능하니 포인터라
 	{
 		// 싱글턴(Singleton)
 		// 이 함수는 콘텐츠 프로젝트에서 접근함.

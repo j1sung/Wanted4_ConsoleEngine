@@ -1,4 +1,6 @@
 #pragma once
+#pragma warning(disable: 4251) // 미봉책(방법 없음)
+#pragma warning(disable: 4172) // 위험성 인지한 상태로 사용.
 
 // 0이면 else로 가서 DLLIMPORT가 되고, 1이면 DLLEXPORT가 된다.
 // #define ENGINE_BUILD_DLL 1
