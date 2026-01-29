@@ -18,6 +18,9 @@ namespace Wanted
 
 		// 입력 관리자 생성
 		input = new Input();
+
+	    // 설정 파일 로드.
+		LoadSetting();
 	}
 
 	Engine::~Engine()
@@ -62,8 +65,9 @@ namespace Wanted
 		// 7
 		// 기준 프레임(단위: 초).
 		// 모든 계산에선 단위가 항상 같아야 한다. 프레임 말고도.
-		float targetFrameRate = 120.0f; // 1초에 240fps
-		float oneFrameTime = 1.0f / targetFrameRate; // 1/240
+		//float targetFrameRate = 120.0f; // 1초에 240fps
+		setting.framerate = setting.framerate == 0.0f ? 60.0f : setting.framerate;
+		float oneFrameTime = 1.0f / setting.framerate; // 1/240
 
 		// 엔진 루프(게임 루프).
 		// !-> Not -> bool값 뒤집기.
@@ -138,6 +142,32 @@ namespace Wanted
 	}
 
 	
+	void Engine::LoadSetting()
+	{
+		FILE* file = nullptr;
+		fopen_s(&file, "../Config/Setting.txt", "rt");//개행문자 LF 정리
+
+		// 예외처리
+		if (!file)
+		{
+			std::cout << "Failed to open engine setting file.\n";
+			__debugbreak();
+			return;
+
+		}
+		// 파일에서 읽은 데이터 담을 버퍼.
+		char buffer[2048] = {};
+
+		// 파일에서 읽기.
+		size_t readSize = fread(buffer, sizeof(char), 2048, file);
+
+		// 문자열 포맷 활용해서 데이터 추출.
+		sscanf_s(buffer, "framerate = %f", &setting.framerate);
+
+		// 파일 닫기.
+		fclose(file);
+	}
+
 	void Engine::BeginPlay()
 	{
 		// 레벨이 있으면 이벤트 전달.

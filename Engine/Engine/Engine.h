@@ -10,6 +10,12 @@ namespace Wanted
 	// 행동 전용.
 	class WANTED_API Engine
 	{
+		// 엔진 설정 구조체.
+		struct EngineSetting
+		{
+			// 프레임 속도.
+			float framerate = 0.0f;
+		};
 		
 	public:
 		Engine();
@@ -29,6 +35,9 @@ namespace Wanted
 
 	private:// 이건 감추기!
 
+		// 설정 파일 로드 함수.
+		void LoadSetting();
+
 		// 게임 플레이 시작 함수.
 		// Unity의 경우: Start/Awake.
 		void BeginPlay();
@@ -42,6 +51,9 @@ namespace Wanted
 	private:
 		// 엔진 종료 플래그. -> 조건부 무한루프를 만들거기 때문에 필요!
 		bool isQuit = false;
+
+		// 엔진 설정 값.
+		EngineSetting setting;
 
 		// 입력 관리자.
 		Input* input = nullptr;
