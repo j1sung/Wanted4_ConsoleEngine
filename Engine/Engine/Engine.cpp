@@ -21,6 +21,19 @@ namespace Wanted
 
 	    // 설정 파일 로드.
 		LoadSetting();
+
+		// 커서 끄기.
+		CONSOLE_CURSOR_INFO info = {};
+		GetConsoleCursorInfo(
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			&info
+		);
+
+		info.bVisible = false;
+		SetConsoleCursorInfo(
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			&info
+		);
 	}
 
 	Engine::~Engine()
@@ -66,7 +79,7 @@ namespace Wanted
 		// 기준 프레임(단위: 초).
 		// 모든 계산에선 단위가 항상 같아야 한다. 프레임 말고도.
 		//float targetFrameRate = 120.0f; // 1초에 240fps
-		setting.framerate = setting.framerate == 0.0f ? 60.0f : setting.framerate;
+		setting.framerate = setting.framerate == 0.0f ? 120.0f : setting.framerate;
 		float oneFrameTime = 1.0f / setting.framerate; // 1/240
 
 		// 엔진 루프(게임 루프).
@@ -107,6 +120,19 @@ namespace Wanted
 
 		// Todo: 정리 작업.
 		std::cout << "Engine has been shutdown....\n";
+
+		// 커서 켜기.
+		CONSOLE_CURSOR_INFO info = {};
+		GetConsoleCursorInfo(
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			&info
+		);
+
+		info.bVisible = true;
+		SetConsoleCursorInfo(
+			GetStdHandle(STD_OUTPUT_HANDLE),
+			&info
+		);
 	}
 	void Engine::QuitEngine()
 	{

@@ -2,6 +2,15 @@
 #include "Core/Input.h"
 #include "Engine/Engine.h"
 #include <iostream>
+#include <Windows.h>
+
+using namespace Wanted;
+
+TestActor::TestActor()
+	//: Actor()
+	: super('T', Vector2(5,5))
+{
+}
 
 void TestActor::BeginPlay()
 {
@@ -14,7 +23,7 @@ void TestActor::BeginPlay()
 
 void TestActor::Tick(float deltaTime)
 {
-	Actor::Tick(deltaTime);
+	super::Tick(deltaTime);
 
 	// Q키 종료.
 	if (Wanted::Input::Get().GetKeyDown('Q'))
@@ -23,8 +32,24 @@ void TestActor::Tick(float deltaTime)
 		Wanted::Engine::Get().QuitEngine();
 	}
 
-	std::cout << "TestActor::Tick().deltaTime: " << deltaTime 
-		<< ", FPS: " << (1.0f / deltaTime) << "\n";
+	// 이동.
+	// if(Input::Get().GetKey('D'))
+	if (Input::Get().GetKey(VK_RIGHT) && GetPosition().x <20)
+	{
+		Vector2 newPosition = GetPosition();
+		newPosition.x += 1;
+		SetPosition(newPosition);
+	}
+
+	if (Input::Get().GetKey(VK_LEFT) && GetPosition().x > 0)
+	{
+		Vector2 newPosition = GetPosition();
+		newPosition.x -= 1;
+		SetPosition(newPosition);
+	}
+
+	//std::cout << "TestActor::Tick().deltaTime: " << deltaTime 
+	//	<< ", FPS: " << (1.0f / deltaTime) << "\n";
 }
 
 void TestActor::Draw()
