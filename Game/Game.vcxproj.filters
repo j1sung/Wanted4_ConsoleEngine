@@ -21,7 +21,10 @@
     <ClCompile Include="Level\TestLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Actor\TestActor.cpp">
+    <ClCompile Include="Actor\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor\Box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +32,10 @@
     <ClInclude Include="Level\TestLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Actor\TestActor.h">
+    <ClInclude Include="Actor\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor\Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

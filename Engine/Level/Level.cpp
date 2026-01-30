@@ -65,7 +65,11 @@ namespace Wanted
 		//actors.push_back(newActor);
 		//actors.emplace_back(newActor); // L-value reference인지 확인도 하기때문에 L-value여도 상관없다.
 
+		// 나중에 추가를 위해 임시 배열에 저장.
 		addRequestedActors.emplace_back(newActor);
+
+		// 오너쉽 설정.
+		newActor->SetOwner(this);
 		
 	}
 	void Level::ProcessAddAndDestroyActors()

@@ -2,9 +2,12 @@
 
 #include "Common/RTTI.h"
 #include "Math/Vector2.h"
+#include "Math/Color.h"
 
 namespace Wanted
 {
+	// 전방 선언. -> 왜 포인터로만 될까? - 클래스/구조체 정보 컴파일 넘어갈때 데이터 크기 문제 없어야/ 메모리 공간 확보, 포인터 주소 제공, 포인터는 8바이트 크기로 통일, 
+	class Level;
 
 	class WANTED_API Actor : public RTTI
 	{
@@ -15,7 +18,8 @@ namespace Wanted
 	public:
 		Actor(
 			const char image = ' ',
-			const Vector2& position = Vector2::Zero
+			const Vector2& position = Vector2::Zero,
+			Color color = Color::White
 		);
 		virtual ~Actor();// virtual 을 써야 자식객체로 생성할때 소멸자 호출됨
 
@@ -27,6 +31,10 @@ namespace Wanted
 		// 위치 변경 및 읽기 함수.
 		void SetPosition(const Vector2& newPosition);
 		inline Vector2 GetPosition() const { return position; }
+
+		// 오너쉽 추가/읽기 함수.
+		inline void SetOwner(Level* newOwner) { owner = newOwner; }
+		inline Level* GetOwner() const { return owner; }
 
 		// Getter.
 		inline bool HasBeganPlay() const 
@@ -57,10 +65,15 @@ namespace Wanted
 		// 그릴 문자(이미지).
 		char image = ' ';
 
+		// 색상.
+		Color color = Color::White;
+
+		// 오너쉽(Ownership).
+		Level* owner = nullptr; // 포인터 아니면 안됨 -> 불안전
+
 	private:
 		// 위치.
 		Vector2 position; // Get/Set 필요
 	};
 
 }
-

@@ -65,7 +65,6 @@ namespace Wanted
 		currentTime = time.QuadPart;
 		previousTime = currentTime; 
 
-		// 7
 		// 기준 프레임(단위: 초).
 		// 모든 계산에선 단위가 항상 같아야 한다. 프레임 말고도.
 		//float targetFrameRate = 120.0f; // 1초에 240fps
@@ -114,11 +113,10 @@ namespace Wanted
 			}
 		}
 
-		// Todo: 정리 작업.
-		std::cout << "Engine has been shutdown....\n";
-
-		// 커서 켜기.
-		Util::TrunOnCursor();
+		// 정리하기.
+		Shutdown();
+		
+		
 	}
 	void Engine::QuitEngine()
 	{
@@ -152,8 +150,16 @@ namespace Wanted
 
 		return *instance;
 	}
-
 	
+	void Engine::Shutdown()
+	{
+		// 정리 작업.
+		std::cout << "Engine has been shutdown....\n";
+
+		// 커서 켜기.
+		Util::TrunOnCursor();
+	}
+
 	void Engine::LoadSetting()
 	{
 		FILE* file = nullptr;
