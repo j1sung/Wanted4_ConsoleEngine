@@ -69,8 +69,8 @@ namespace Wanted
 		// window 기준이면 window.h 쓰자.
 		for (int ix = 0; ix < 255; ++ix)
 		{
-			keyStates[ix].isKeyDown
-				= GetAsyncKeyState(ix) & 0x8000 > 0 ? true : false;
+			keyStates[ix].isKeyDown =
+				(GetAsyncKeyState(ix) & 0x8000) > 0 ? true : false;
 		}
 
 	}
