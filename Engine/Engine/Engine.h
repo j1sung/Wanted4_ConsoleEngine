@@ -19,7 +19,7 @@ namespace Wanted
 		
 	public:
 		Engine();
-		~Engine();
+		virtual ~Engine();
 
 		// 엔진 루프(게임 루프).
 		void Run();
@@ -33,7 +33,7 @@ namespace Wanted
 		// 전역 접근 함수.
 		static Engine& Get();
 
-	private:// 이건 감추기!
+	protected:// 이건 감추기!
 
 		// 정리 함수.
 		void Shutdown();
@@ -51,7 +51,7 @@ namespace Wanted
 		// 그리기 함수. (Draw/Render).
 		void Draw();
 
-	private:
+	protected:
 		// 엔진 종료 플래그. -> 조건부 무한루프를 만들거기 때문에 필요!
 		bool isQuit = false;
 

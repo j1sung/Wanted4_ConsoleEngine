@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Engine/Engine.h"
+#include "Game/Game.h"
 #include "Level/SokobanLevel.h"
 //#include "Actor/TestActor.h"
 //#include "Level/Level.h"
@@ -9,9 +10,12 @@ using namespace Wanted;
 
 int main()
 {
-	Wanted::Engine engine;
-	engine.SetNewLevel(new SokobanLevel());
-	engine.Run();
+	//Wanted::Engine engine;
+	//engine.SetNewLevel(new SokobanLevel());
+	//engine.Run();
+
+	Game game;
+	game.Run();
 
 	//TestLevel* level = new TestLevel();
 	//Actor* actor = new TestActor(); // 형변환 성공
