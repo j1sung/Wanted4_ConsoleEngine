@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Engine/Engine.h"
-#include "Level/TestLevel.h"
+#include "Level/SokobanLevel.h"
 //#include "Actor/TestActor.h"
 //#include "Level/Level.h"
 //#include "Actor/Actor.h"
@@ -10,7 +10,7 @@ using namespace Wanted;
 int main()
 {
 	Wanted::Engine engine;
-	engine.SetNewLevel(new TestLevel());
+	engine.SetNewLevel(new SokobanLevel());
 	engine.Run();
 
 	//TestLevel* level = new TestLevel();

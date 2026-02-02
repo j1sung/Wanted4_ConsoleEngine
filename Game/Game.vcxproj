@@ -168,7 +168,7 @@
     <ClCompile Include="Actor\Player.cpp" />
     <ClCompile Include="Actor\Target.cpp" />
     <ClCompile Include="Actor\Wall.cpp" />
-    <ClCompile Include="Level\TestLevel.cpp" />
+    <ClCompile Include="Level\SokobanLevel.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,7 +177,8 @@
     <ClInclude Include="Actor\Player.h" />
     <ClInclude Include="Actor\Target.h" />
     <ClInclude Include="Actor\Wall.h" />
-    <ClInclude Include="Level\TestLevel.h" />
+    <ClInclude Include="Interface\ICanPlayerMove.h" />
+    <ClInclude Include="Level\SokobanLevel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

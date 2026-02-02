@@ -15,14 +15,21 @@ namespace Wanted
     public:
         virtual const size_t& GetType() const = 0;
 
-        virtual bool Is(RTTI* const rtti) const
+        virtual bool Is(RTTI* const rtti) const // RTTI 객체 포인터로 넘기기
         {
             return false;
         }
 
-        virtual bool Is(const size_t id) const
+        virtual bool Is(const size_t id) const // 주소를 넘기거나
         {
             return false;
+        }
+
+        // 타입 질문 함수. -> 지금 이동이 가능한지?
+        template<typename T> // 어떤 객체가 특정 타입인지? 
+        bool IsTypeOf()
+        {
+            return Is(T::TypeIdClass()); // GetType()을 넣어도 됨
         }
 
         template<typename T>
