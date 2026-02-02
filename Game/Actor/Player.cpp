@@ -10,9 +10,9 @@
 
 using namespace Wanted;
 
-Player::Player()
+Player::Player(const Vector2& position)
 	//: Actor()
-	: super('P', Vector2(5,5), Color::Red)
+	: super('P', position, Color::Red)
 {
 	// 그리기 우선순위 높게 설정.
 	sortingOrder = 10;
@@ -24,7 +24,7 @@ void Player::BeginPlay()
 	// C++는 부모함수 가리키는 포인터가 없음
 	Actor::BeginPlay(); // Actor:: 는 상위 멤버 함수를 가리킴
 
-	std::cout << "TestActor::BeginPlay().\n";
+	// std::cout << "TestActor::BeginPlay().\n";
 }
 
 void Player::Tick(float deltaTime)
