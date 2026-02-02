@@ -7,20 +7,22 @@
 // RunTime-Type-Information.
 namespace Wanted
 {
-    //RTTI를 제공하는 클래스의 최상위 클래스.
+    //RTTI를 제공하는 클래스의 최상위 클래스. (추상 클래스)
     //C#의 object, Java의 object. 
     //언리얼의 UObject로 생각해볼 수 있음.
     class WANTED_API RTTI
     {
     public:
+        // 무슨 타입인지 런타임에 알 수 있게 해주는 함수.
         virtual const size_t& GetType() const = 0;
 
-        virtual bool Is(RTTI* const rtti) const // RTTI 객체 포인터로 넘기기
+        // 타입 검사 함수.
+        virtual bool Is(RTTI* const rtti) const // 객체 타입이랑 같은지?
         {
             return false;
         }
 
-        virtual bool Is(const size_t id) const // 주소를 넘기거나
+        virtual bool Is(const size_t id) const // 타입ID랑 같은지?
         {
             return false;
         }
@@ -69,7 +71,9 @@ protected:                                                                      
    }                                                                                   \
 public:                                                                                \
    virtual const size_t& GetType() const override { return Type::TypeIdClass(); }      \
-   using super = ParentType;                                                           \
+                                                                                       \
+   using super = ParentType;  /* super 이름으로 ParentType 가리키기 */                   \
+                                                                                       \
    virtual bool Is(const size_t id) const override                                     \
    {                                                                                   \
       if (id == TypeIdClass())                                                         \
