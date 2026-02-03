@@ -5,6 +5,7 @@ namespace Wanted
 {
 	// 전방 선언.
 	class Input;
+	class Renderer;
 
 	// Main game engine class.
 	// 행동 전용.
@@ -15,6 +16,12 @@ namespace Wanted
 		{
 			// 프레임 속도.
 			float framerate = 0.0f;
+
+			// 화면 너비.
+			int width = 0;
+
+			// 화면 높이.
+			int height = 0;
 		};
 		
 	public:
@@ -60,6 +67,9 @@ namespace Wanted
 
 		// 입력 관리자.
 		Input* input = nullptr;
+
+		// 렌더러 객체.
+		Renderer* renderer = nullptr;
 
 		// 메인 레벨.
 		class Level* mainLevel = nullptr; // 전방선언
