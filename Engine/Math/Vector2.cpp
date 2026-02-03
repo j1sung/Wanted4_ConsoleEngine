@@ -11,7 +11,8 @@ namespace Wanted
 	Vector2::Vector2()
 	{
 	}
-	Vector2::Vector2(int, int y)
+
+	Vector2::Vector2(int x, int y)
 		: x(x), y(y) // 이건 선언과 동시 초기화쪽은 안하고 이니셜라이즈에서 파라미터 들어오면 여기서만 함
 	{
 		//this->x = x; // 이건 선언에서 0 초기화 이후 또 여기서 한번 더 초기화 함

@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Common/RTTI.h"
+
 // STL(Standard Template Library - C++ 에서 기본 제공)
 // 크기가 알아서 변경되는 배열.
 #include <vector>
-#include "Common/RTTI.h"
 
 namespace Wanted
 {

@@ -1,6 +1,6 @@
 #include "Actor.h"
 #include "Util/Util.h"
-#include "Core/Renderer.h"
+#include "Render/Renderer.h"
 
 #include <iostream>
 #include <Windows.h>

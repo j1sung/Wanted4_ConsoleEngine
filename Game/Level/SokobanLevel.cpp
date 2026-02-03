@@ -20,8 +20,8 @@ SokobanLevel::SokobanLevel()
 {
 	// TestActor 액터를 레벨에 추가.
 	//AddNewActor(new Player());
-	LoadMap("Map.txt");
-	//LoadMap("Stage1.txt");
+	//LoadMap("Map.txt");
+	LoadMap("Stage1.txt");
 	//LoadMap("Stage2.txt");
 	//LoadMap("Stage3.txt");
 }

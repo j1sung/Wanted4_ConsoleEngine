@@ -1,1 +1,1 @@
-framerate = 1
+framerate = 60

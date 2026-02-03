@@ -9,7 +9,7 @@ namespace Wanted
 	{
 	public:
 		Vector2();
-		Vector2(int, int y);
+		Vector2(int x, int y);
 		~Vector2();
 		
 		// 문자열로 변환해서 반환하는 함수.
