@@ -45,7 +45,7 @@ int main()
 	//CreateConsoleScreenBuffer(); // 화면에 보이게 전환
 	//SetConsoleActiveScreenBuffer();
 	
-	// ----------------------- 위에 콘솔 이중 버퍼 그리기 -----------------------------
+	// ----------------------- 위에 콘솔 이중 버퍼 그리기 예시 -----------------------------
 
 	//Wanted::Engine engine;
 	//engine.SetNewLevel(new SokobanLevel());
