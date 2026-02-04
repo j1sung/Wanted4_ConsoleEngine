@@ -194,7 +194,7 @@ namespace Wanted
 		// 버퍼 교환.
 		SetConsoleActiveScreenBuffer(GetCurrentBuffer()->GetBuffer());
 		
-		// 인덱스 쿄체.
+		// 인덱스 교체.
 		currentBufferIndex = 1 - currentBufferIndex;
 	}
 
